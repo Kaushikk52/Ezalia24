@@ -1,12 +1,10 @@
-"use client";
-
 import type React from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Baby,
   ChevronDown,
-  EyeIcon as EyeClosed,
+  EyeClosed,
   GalleryHorizontal,
   Heart,
   LogOut,
@@ -20,6 +18,7 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogoAnimation from "./LogoAnimation";
+import { SearchBar } from "./Searchbar";
 
 export default function Navbar() {
   const [isExploreOpen, setIsExploreOpen] = useState(false);
@@ -56,7 +55,7 @@ export default function Navbar() {
     title,
     description,
     onClick,
-    icon
+    icon,
   }: {
     href: string;
     title: string;
@@ -74,7 +73,6 @@ export default function Navbar() {
         <div className="font-semibold">{title}</div>
         <p className="text-sm text-gray-500">{description}</p>
       </div>
-    
     </Link>
   );
 
@@ -97,9 +95,6 @@ export default function Navbar() {
           <LogoAnimation />
         </div>
         <nav className="hidden md:flex space-x-8">
-          <NavLink href="/">
-            <span className="text-black">Home</span>
-          </NavLink>
           <div
             className="relative group"
             onMouseEnter={() => setIsExploreOpen(true)}
@@ -241,21 +236,14 @@ export default function Navbar() {
           <NavLink href="/about">
             <span className="text-black">About</span>
           </NavLink>
-          <NavLink href="/services">
-            <span className="text-black">Services</span>
-          </NavLink>
           <NavLink href="/contact">
-            <span className="text-black">Contact Us</span>
+            <span className="text-black">Contact</span>
           </NavLink>
         </nav>
         <div className="hidden md:flex space-x-4">
-        <button
-            className="px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base"
-            onClick={() => navigate("/wishlist")}
-          >
-            <Heart className="w-3 h-3 md:w-5 md:h-5" fill="red" />
-          </button>
-
+          <SearchBar
+            onSearch={(value) => console.log("Searching for:", value)}
+          />
           <button
             className="px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base"
             onClick={() => navigate("/cart")}
@@ -263,49 +251,75 @@ export default function Navbar() {
             <ShoppingBag className="w-3 h-3 md:w-5 md:h-5" />
           </button>
 
-          <div
-            className="relative"
-            onMouseEnter={() => setIsAccountOpen(true)}
-            onMouseLeave={() => setIsAccountOpen(false)}
-          >
-            <button className="group relative px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base">
-              <span className="phone-none">Welcome</span>
-              <ChevronDown className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-180 transition-rotate duration-300" />
+          {localStorage.getItem("token") !== null ? (
+            <div
+              className="relative"
+              onMouseEnter={() => setIsAccountOpen(true)}
+              onMouseLeave={() => setIsAccountOpen(false)}
+            >
+              <button className="group relative px-4 py-2 md:px-6 md:py-3 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base">
+                <span className="phone-none">Welcome</span>
+                <ChevronDown
+                  className={`w-5 h-5 md:w-6 md:h-6 transform transition-transform duration-300 ${
+                    isAccountOpen === true ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <AnimatePresence>
+                {isAccountOpen && (
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={dropdownVariants}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-20"
+                  >
+                    <div className="flex flex-col">
+                      <DropdownLink
+                        href="/wishlist"
+                        title="Wishlist"
+                        description="View your saved items"
+                        icon={
+                          <Heart
+                            className="w-3 h-3 md:w-5 md:h-5"
+                            fill="red"
+                            stroke="none"
+                            fillOpacity="0.7"
+                          />
+                        }
+                      />
+                      <DropdownLink
+                        href="/profile"
+                        title="Profile"
+                        description="View your profile"
+                        icon={<User className="h-5 w-5" />}
+                      />
+                      <DropdownLink
+                        href="/settings"
+                        title="Settings"
+                        description="Manage your account settings"
+                        icon={<Settings className="h-5 w-5" />}
+                      />
+                      <DropdownLink
+                        href="/logout"
+                        title="Logout"
+                        description="Sign out of your account"
+                        icon={<LogOut className="h-5 w-5" />}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <button
+              className="px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base"
+              onClick={() => navigate("/login")}
+            >
+              Login
             </button>
-            <AnimatePresence>
-              {isAccountOpen && (
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={dropdownVariants}
-                  transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-20"
-                >
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      href="/profile"
-                      title="Profile"
-                      description="View your profile"
-                      icon={<User className="h-5 w-5" />}
-                    />
-                    <DropdownLink
-                      href="/settings"
-                      title="Settings"
-                      description="Manage your account settings"
-                      icon={<Settings className="h-5 w-5" />}
-                    />
-                    <DropdownLink
-                      href="/logout"
-                      title="Logout"
-                      description="Sign out of your account"
-                      icon={<LogOut className="h-5 w-5" />}
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          )}
         </div>
       </div>
 
@@ -370,7 +384,7 @@ export default function Navbar() {
                 className="block py-2 text-lg font-semibold text-gray-800 hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact Us
+                Contact
               </Link>
             </div>
           </motion.div>
