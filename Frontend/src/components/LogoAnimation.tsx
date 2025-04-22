@@ -1,120 +1,60 @@
-import { useEffect, useRef } from "react"
-import { motion, useAnimationControls } from "framer-motion"
+"use client"
+
+import { useEffect } from "react"
+import { motion, useAnimate } from "framer-motion"
 
 export default function LogoAnimation() {
-  const iRef = useRef<HTMLSpanElement>(null)
-  const heartControls = useAnimationControls()
+  const [heartScope, animate] = useAnimate()
 
   useEffect(() => {
-    const animateHeart = async () => {
-      // Wait for text to animate in
-      await new Promise((resolve) => setTimeout(resolve, 1200))
+    const animateSequence = async () => {
+      // Wait for text to finish animating
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      // Start from left
-      await heartControls.start({
-        opacity: 1,
-        x: -100,
-      })
-
-      // Move to position above the "i"
-      await heartControls.start({
-        x: 0,
-        transition: {
-          duration: 0.8,
-          type: "spring",
-          stiffness: 200,
-          damping: 15,
-        },
-      })
+      // Animate heart
+      await animate(heartScope.current, { opacity: 1, scale: 1 }, { duration: 0.3 })
+      await animate(heartScope.current, { y: [0, -5, 0] }, { duration: 0.6, repeat: 1, ease: "easeInOut" })
     }
 
-    animateHeart()
-  }, [heartControls])
+    animateSequence()
+  }, [animate])
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center">
       <div className="relative">
-        {/* Main logo text */}
-        <div className="flex items-end relative">
-          {/* Animate each letter with staggered delay */}
-          {"ezal".split("").map((char, index) => (
+        {/* Logo text with staggered animation */}
+        <div className="flex items-baseline">
+          {/* Animate all letters with staggered delay */}
+          {"ezalia".split("").map((char, index) => (
             <motion.span
               key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.3,
-                delay: index * 0.15,
+                duration: 0.4,
+                delay: index * 0.08,
                 ease: "easeOut",
               }}
-              className="text-[#0099cc] text-3xl font-bold tracking-tighter"
-              style={{
-                fontFamily: "Arial, sans-serif",
-                fontWeight: "bold",
-                letterSpacing: "0.15em",
-              }}
+              className="text-[#0099cc] text-3xl font-bold"
+              style={{ position: "relative" }}
             >
               {char}
-            </motion.span>
-          ))}
 
-          {/* The "i" character */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.3,
-              delay: 4 * 0.15, // Same pattern as the previous letters
-              ease: "easeOut",
-            }}
-          >
-            <motion.span
-              ref={iRef}
-              className="text-[#0099cc] text-3xl font-bold tracking-tighter"
-              style={{
-                fontFamily: "Arial, sans-serif",
-                fontWeight: "bold",
-                letterSpacing: "0.15em",
-              }}
-            >
-              i
-            </motion.span>
-
-            {/* Heart above the i */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={heartControls}
-              className="absolute top-0 left-1/3 -translate-x-1/4 w-4 h-4"
-            >
-              <svg viewBox="0 0 100 100" className="w-full h-full">
-                <path
-                  d="M50,30 C35,10 0,15 0,50 C0,80 40,90 50,100 C60,90 100,80 100,50 C100,15 65,10 50,30 Z"
-                  fill="#e41e26"
-                />
-              </svg>
-            </motion.div>
-          </motion.div>
-
-          {/* Rest of text */}
-          {"a".split("").map((char, index) => (
-            <motion.span
-              key={`a-${index}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: (5 + index) * 0.15, // Continue the pattern
-                ease: "easeOut",
-              }}
-              className="text-[#0099cc] text-3xl font-bold tracking-tighter"
-              style={{
-                fontFamily: "Arial, sans-serif",
-                fontWeight: "bold",
-                letterSpacing: "0.15em",
-              }}
-            >
-              {char}
+              {/* Heart above the "i" */}
+              {char === "i" && (
+                <motion.div
+                  ref={heartScope}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  className="absolute top-0 left-1/2 -translate-x-1/2"
+                >
+                  <svg viewBox="0 0 100 100" className="w-3 h-3">
+                    <path
+                      d="M50,30 C35,10 0,15 0,50 C0,80 40,90 50,100 C60,90 100,80 100,50 C100,15 65,10 50,30 Z"
+                      fill="#e41e26"
+                    />
+                  </svg>
+                </motion.div>
+              )}
             </motion.span>
           ))}
         </div>
