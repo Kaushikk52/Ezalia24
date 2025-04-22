@@ -2,19 +2,19 @@ import type React from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Baby,
   ChevronDown,
-  EyeClosed,
-  GalleryHorizontal,
   Heart,
+  Icon,
   LogOut,
   Menu,
   Settings,
   Shirt,
   ShoppingBag,
+  SprayCan,
   User,
   X,
 } from "lucide-react";
+import { bottleBaby, dress, flowerPot } from "@lucide/lab";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogoAnimation from "./LogoAnimation";
@@ -25,8 +25,8 @@ export default function Navbar() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<
-    "mens" | "womens" | "kids" | "all"
-  >("all");
+    "mens" | "womens" | "kids" | "beauty" | "home"
+  >("womens");
   const navigate = useNavigate();
 
   const dropdownVariants = {
@@ -116,7 +116,7 @@ export default function Navbar() {
                   exit="hidden"
                   variants={dropdownVariants}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-0 mt-2 w-screen max-w-lg bg-white rounded-md shadow-lg py-1 z-20"
+                  className="absolute left-0 mt-2 w-screen max-w-2xl bg-white rounded-md shadow-lg py-1 z-20"
                 >
                   <div className="flex">
                     {/* Left Side - Categories */}
@@ -125,37 +125,20 @@ export default function Navbar() {
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
               ${
-                selectedCategory === "all" ? "bg-blue-100" : "hover:bg-slate-50"
-              }
-            `}
-                        onClick={() => setSelectedCategory("all")}
-                      >
-                        <div className="font-semibold flex items-center">
-                          <GalleryHorizontal className="mr-2" size={18} />
-                          All
-                        </div>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Explore Projects & Properties
-                        </p>
-                      </button>
-
-                      <button
-                        className={`
-              w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
                 selectedCategory === "womens"
-                  ? "bg-pink-200"
+                  ? "bg-rose-100"
                   : "hover:bg-slate-50"
               }
             `}
                         onClick={() => setSelectedCategory("womens")}
                       >
                         <div className="font-semibold flex items-center">
-                          <EyeClosed className="mr-2" size={18} />
+                          <Icon iconNode={dress} className="mr-2" size={18} />
                           Womens
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Explore residential & commercial properties
+                          Discover the latest in women’s fashion — dresses,
+                          tops, ethnic wear, western styles & more.
                         </p>
                       </button>
 
@@ -163,9 +146,7 @@ export default function Navbar() {
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
               ${
-                selectedCategory === "mens"
-                  ? "bg-green-200"
-                  : "hover:bg-slate-50"
+                selectedCategory === "mens" ? "bg-sky-100" : "hover:bg-slate-50"
               }
             `}
                         onClick={() => setSelectedCategory("mens")}
@@ -175,7 +156,8 @@ export default function Navbar() {
                           Mens
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Explore residential & commercial properties
+                          Explore a wide range of men’s apparel — shirts,
+                          t-shirts, jeans, formalwear & activewear.
                         </p>
                       </button>
 
@@ -184,49 +166,141 @@ export default function Navbar() {
               w-full text-left p-3 rounded-lg transition-colors duration-200 
               ${
                 selectedCategory === "kids"
-                  ? "bg-yellow-200"
+                  ? "bg-yellow-100"
                   : "hover:bg-slate-50"
               }
             `}
                         onClick={() => setSelectedCategory("kids")}
                       >
                         <div className="font-semibold flex items-center">
-                          <Baby className="mr-2" size={18} />
+                          <Icon
+                            iconNode={bottleBaby}
+                            className="mr-2"
+                            size={18}
+                          />
                           Kids
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Discover upcoming & ongoing real estate projects
+                          Shop fun, colorful, and comfortable clothes for kids —
+                          from infants to teens, for all occasions.
+                        </p>
+                      </button>
+
+                      <button
+                        className={`
+              w-full text-left p-3 rounded-lg transition-colors duration-200 
+              ${
+                selectedCategory === "beauty"
+                  ? "bg-purple-200"
+                  : "hover:bg-slate-50"
+              }
+            `}
+                        onClick={() => setSelectedCategory("beauty")}
+                      >
+                        <div className="font-semibold flex items-center">
+                          <SprayCan className="mr-2" size={18} />
+                          Beauty
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Elevate your look with skincare, makeup, and beauty
+                          accessories from top brands.
+                        </p>
+                      </button>
+
+                      <button
+                        className={`
+              w-full text-left p-3 rounded-lg transition-colors duration-200 
+              ${
+                selectedCategory === "home"
+                  ? "bg-emerald-100"
+                  : "hover:bg-slate-50"
+              }
+            `}
+                        onClick={() => setSelectedCategory("home")}
+                      >
+                        <div className="font-semibold flex items-center">
+                          <Icon
+                            iconNode={flowerPot}
+                            className="mr-2"
+                            size={18}
+                          />
+                          Home & Kitchen
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Add style to your space with curated home décor,
+                          kitchen essentials, and lifestyle accessories.
                         </p>
                       </button>
                     </div>
 
                     {/* Right Side - Dropdown Links */}
-                    <div className="grid gap-1 w-full">
-                      <DropdownLink
-                        href={`/listings/women/all`}
-                        title="Womens"
-                        description={`Discover all Womens Apparel`}
-                      />
-                      <DropdownLink
-                        href={`/listings/all`}
-                        title="Mens"
-                        description={`Discover all Projects & Properties`}
-                      />
-                      <DropdownLink
-                        href={`/listings/all`}
-                        title="Kids"
-                        description={`Discover all Projects & Properties`}
-                      />
-                      <DropdownLink
-                        href={`/listings/all`}
-                        title="Beauty"
-                        description={`Discover all Projects & Properties`}
-                      />
-                      <DropdownLink
-                        href={`/listings/all`}
-                        title="Home & Kitchen"
-                        description={`Discover all Projects & Properties`}
-                      />
+                    <div className="flex flex-col space-y-0.5">
+                      {selectedCategory === "womens" && (
+                        <>
+                          <DropdownLink
+                            href={`/listings/women/kurtis`}
+                            title="Kurtis"
+                            description={`Stylish kurtis for everyday wear & festive flair.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/women/sarees`}
+                            title="Sarees"
+                            description={`Traditional & designer sarees for every occasion.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/women/kurti-sets`}
+                            title="Kurti Sets"
+                            description={`Coordinated ethnic sets for a complete look.`}
+                          />
+                           <DropdownLink
+                            href={`/listings/women/salwaar-material`}
+                            title="Salwaar material"
+                            description={`Unstitched salwaar fabrics in rich colors & patterns.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/women/night-wear`}
+                            title="Night wear"
+                            description={`Comfortable & chic nightwear for restful sleep.`}
+                          />
+                           <DropdownLink
+                            href={`/listings/women/blouse`}
+                            title="Blouse"
+                            description={`Elegant blouses to pair with sarees & lehengas.`}
+                          />
+                        </>
+                      )}
+
+                      {selectedCategory === "mens" && (
+                        <>
+                          <DropdownLink
+                            href={`/listings/men/shirt`}
+                            title="Shirt"
+                            description={`Smart casual & formal shirts for every look.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/men/tshirt`}
+                            title="T-Shirt"
+                            description={`Trendy & comfy t-shirts for everyday wear.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/men/waist-coat`}
+                            title="Waist Coat"
+                            description={`Sleek waistcoats for weddings & formal events.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/men/kurta`}
+                            title="Kurta"
+                            description={`Ethnic kurtas blending comfort & tradition.`}
+                          />
+                          <DropdownLink
+                            href={`/listings/men/bottomwear`}
+                            title="Bottomwear"
+                            description={`Jeans, trousers & more for all-day comfort.`}
+                          />
+                        </>
+                      )}
+
+
                     </div>
                   </div>
                 </motion.div>
