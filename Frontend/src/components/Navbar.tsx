@@ -252,7 +252,7 @@ export default function Navbar() {
                             title="Kurti Sets"
                             description={`Coordinated ethnic sets for a complete look.`}
                           />
-                           <DropdownLink
+                          <DropdownLink
                             href={`/listings/women/salwaar-material`}
                             title="Salwaar material"
                             description={`Unstitched salwaar fabrics in rich colors & patterns.`}
@@ -262,7 +262,7 @@ export default function Navbar() {
                             title="Night wear"
                             description={`Comfortable & chic nightwear for restful sleep.`}
                           />
-                           <DropdownLink
+                          <DropdownLink
                             href={`/listings/women/blouse`}
                             title="Blouse"
                             description={`Elegant blouses to pair with sarees & lehengas.`}
@@ -300,7 +300,115 @@ export default function Navbar() {
                         </>
                       )}
 
+                      {selectedCategory === "kids" && (
+                        <>
+                          <DropdownLink
+                            href={`/listings/kids/toys`}
+                            title="Toys"
+                            description="Fun toys that spark joy & creativity."
+                          />
+                          <DropdownLink
+                            href={`/listings/kids/accessories`}
+                            title="Kids Accessories"
+                            description="Cool caps, belts, & bags for little ones."
+                          />
+                          <DropdownLink
+                            href={`/listings/kids/stationary`}
+                            title="Stationary"
+                            description="Colorful stationery to make learning fun."
+                          />
+                          <DropdownLink
+                            href={`/listings/kids/dress`}
+                            title="Kids Dress"
+                            description="Cute outfits for every kid’s moment."
+                          />
+                        </>
+                      )}
 
+                      {selectedCategory === "beauty" && (
+                        <>
+                          <DropdownLink
+                            href={`/listings/beauty/footwear`}
+                            title="Footwear"
+                            description="Stylish, comfy pairs for every step."
+                          />
+                          <DropdownLink
+                            href={`/listings/beauty/jewels`}
+                            title="Jewels"
+                            description="Everyday sparkle for every look."
+                          />
+                          <DropdownLink
+                            href={`/listings/beauty/bags`}
+                            title="Bags"
+                            description="Chic bags for work or weekends."
+                          />
+                          <DropdownLink
+                            href={`/listings/beauty/beauty`}
+                            title="Beauty"
+                            description="Essentials for skin, hair, & glow."
+                          />
+                          <DropdownLink
+                            href={`/listings/beauty/dupatta-stoles`}
+                            title="Dupatta & Stoles"
+                            description="Finish your look with flair."
+                          />
+                        </>
+                      )}
+
+                      {selectedCategory === "home" && (
+                        <>
+                          <DropdownLink
+                            href={`/listings/home/kitchenware`}
+                            title="Kitchenware"
+                            description="Essentials to elevate your cooking & dining."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/night-lamps`}
+                            title="Night Lamps"
+                            description="Add warmth & charm to your bedtime routine."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/personal-care`}
+                            title="Personal Care"
+                            description="Self-care tools for your daily wellness rituals."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/accessories`}
+                            title="Home Accessories"
+                            description="Style your space with modern décor accents."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/furnishing`}
+                            title="Home Furnishing"
+                            description="Soft furnishings for a cozy and elegant vibe."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/mugs`}
+                            title="Mugs"
+                            description="Sip in style with our designer mug collection."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/frame`}
+                            title="Photo Frames"
+                            description="Frame your memories with elegance & flair."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/coasters`}
+                            title="Coasters"
+                            description="Protect surfaces with style & practicality."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/hanging`}
+                            title="Hanging Wall Art"
+                            description="Artful pieces to bring your walls to life."
+                          />
+                          <DropdownLink
+                            href={`/listings/home/holders`}
+                            title="Keychain Holders"
+                            description="Keep keys organized with creative wall hangers."
+                          />
+                        </>
+                      )}
                     </div>
                   </div>
                 </motion.div>

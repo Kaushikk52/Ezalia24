@@ -2,7 +2,7 @@ package com.ezalia.demo.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,8 +18,8 @@ import java.util.List;
 public class User extends Auditable implements UserDetails {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue
+    @UuidGenerator
     @Column(name = "user_id", nullable = false, updatable = false, length = 36)
     private String id;
 
@@ -43,7 +43,7 @@ public class User extends Auditable implements UserDetails {
     private UserRole role;
 
     public enum UserRole {
-        ROLE_USER,ROLE_ADMIN;
+        ROLE_USER,ROLE_ADMIN
     }
 
     @PrePersist
