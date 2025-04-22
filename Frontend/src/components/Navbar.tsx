@@ -1,54 +1,39 @@
-import type React from "react";
+import type React from "react"
 
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  ChevronDown,
-  Heart,
-  Icon,
-  LogOut,
-  Menu,
-  Settings,
-  Shirt,
-  ShoppingBag,
-  SprayCan,
-  User,
-  X,
-} from "lucide-react";
-import { bottleBaby, dress, flowerPot } from "@lucide/lab";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import LogoAnimation from "./LogoAnimation";
-import { SearchBar } from "./Searchbar";
+import { AnimatePresence, motion } from "framer-motion"
+import { ChevronDown, Heart, Icon, LogOut, Menu, Settings, Shirt, ShoppingBag, SprayCan, User, X } from "lucide-react"
+import { bottleBaby, dress, flowerPot } from "@lucide/lab"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import LogoAnimation from "./LogoAnimation"
+import { SearchBar } from "./Searchbar"
+import { Avatar, AvatarFallback } from "./ui/avatar"
+import { AvatarImage } from "@radix-ui/react-avatar"
 
 export default function Navbar() {
-  const [isExploreOpen, setIsExploreOpen] = useState(false);
-  const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<
-    "mens" | "womens" | "kids" | "beauty" | "home"
-  >("womens");
-  const navigate = useNavigate();
+  const [isExploreOpen, setIsExploreOpen] = useState(false)
+  const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState<"mens" | "womens" | "kids" | "beauty" | "home">("womens")
+  const navigate = useNavigate()
 
   const dropdownVariants = {
     hidden: { opacity: 0, y: -10 },
     visible: { opacity: 1, y: 0 },
-  };
+  }
 
   const NavLink = ({
     href,
     children,
   }: {
-    href: string;
-    children: React.ReactNode;
+    href: string
+    children: React.ReactNode
   }) => (
-    <Link
-      to={href}
-      className="group relative text-white text-base font-medium hover:text-gray-900"
-    >
+    <Link to={href} className="group relative text-white text-base font-medium hover:text-gray-900">
       {children}
       <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
     </Link>
-  );
+  )
 
   const DropdownLink = ({
     href,
@@ -57,11 +42,11 @@ export default function Navbar() {
     onClick,
     icon,
   }: {
-    href: string;
-    title: string;
-    description: string;
-    onClick?: () => void;
-    icon?: React.ReactNode;
+    href: string
+    title: string
+    description: string
+    onClick?: () => void
+    icon?: React.ReactNode
   }) => (
     <Link
       to={href}
@@ -74,12 +59,12 @@ export default function Navbar() {
         <p className="text-sm text-gray-500">{description}</p>
       </div>
     </Link>
-  );
+  )
 
   const mobileMenuVariants = {
     closed: { opacity: 0, x: "-100%" },
     open: { opacity: 1, x: 0 },
-  };
+  }
 
   return (
     <>
@@ -124,11 +109,7 @@ export default function Navbar() {
                       <button
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
-                selectedCategory === "womens"
-                  ? "bg-rose-100"
-                  : "hover:bg-slate-50"
-              }
+              ${selectedCategory === "womens" ? "bg-rose-100" : "hover:bg-slate-50"}
             `}
                         onClick={() => setSelectedCategory("womens")}
                       >
@@ -137,17 +118,14 @@ export default function Navbar() {
                           Womens
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Discover the latest in women’s fashion — dresses,
-                          tops, ethnic wear, western styles & more.
+                          Discover the latest in women’s fashion — dresses, tops, ethnic wear, western styles & more.
                         </p>
                       </button>
 
                       <button
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
-                selectedCategory === "mens" ? "bg-sky-100" : "hover:bg-slate-50"
-              }
+              ${selectedCategory === "mens" ? "bg-sky-100" : "hover:bg-slate-50"}
             `}
                         onClick={() => setSelectedCategory("mens")}
                       >
@@ -156,44 +134,31 @@ export default function Navbar() {
                           Mens
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Explore a wide range of men’s apparel — shirts,
-                          t-shirts, jeans, formalwear & activewear.
+                          Explore a wide range of men’s apparel — shirts, t-shirts, jeans, formalwear & activewear.
                         </p>
                       </button>
 
                       <button
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
-                selectedCategory === "kids"
-                  ? "bg-yellow-100"
-                  : "hover:bg-slate-50"
-              }
+              ${selectedCategory === "kids" ? "bg-yellow-100" : "hover:bg-slate-50"}
             `}
                         onClick={() => setSelectedCategory("kids")}
                       >
                         <div className="font-semibold flex items-center">
-                          <Icon
-                            iconNode={bottleBaby}
-                            className="mr-2"
-                            size={18}
-                          />
+                          <Icon iconNode={bottleBaby} className="mr-2" size={18} />
                           Kids
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Shop fun, colorful, and comfortable clothes for kids —
-                          from infants to teens, for all occasions.
+                          Shop fun, colorful, and comfortable clothes for kids — from infants to teens, for all
+                          occasions.
                         </p>
                       </button>
 
                       <button
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
-                selectedCategory === "beauty"
-                  ? "bg-purple-200"
-                  : "hover:bg-slate-50"
-              }
+              ${selectedCategory === "beauty" ? "bg-purple-200" : "hover:bg-slate-50"}
             `}
                         onClick={() => setSelectedCategory("beauty")}
                       >
@@ -202,33 +167,24 @@ export default function Navbar() {
                           Beauty
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Elevate your look with skincare, makeup, and beauty
-                          accessories from top brands.
+                          Elevate your look with skincare, makeup, and beauty accessories from top brands.
                         </p>
                       </button>
 
                       <button
                         className={`
               w-full text-left p-3 rounded-lg transition-colors duration-200 
-              ${
-                selectedCategory === "home"
-                  ? "bg-emerald-100"
-                  : "hover:bg-slate-50"
-              }
+              ${selectedCategory === "home" ? "bg-emerald-100" : "hover:bg-slate-50"}
             `}
                         onClick={() => setSelectedCategory("home")}
                       >
                         <div className="font-semibold flex items-center">
-                          <Icon
-                            iconNode={flowerPot}
-                            className="mr-2"
-                            size={18}
-                          />
+                          <Icon iconNode={flowerPot} className="mr-2" size={18} />
                           Home & Kitchen
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
-                          Add style to your space with curated home décor,
-                          kitchen essentials, and lifestyle accessories.
+                          Add style to your space with curated home décor, kitchen essentials, and lifestyle
+                          accessories.
                         </p>
                       </button>
                     </div>
@@ -422,30 +378,34 @@ export default function Navbar() {
             <span className="text-black">Contact</span>
           </NavLink>
         </nav>
-        <div className="hidden md:flex space-x-4">
-          <SearchBar
-            onSearch={(value) => console.log("Searching for:", value)}
-          />
+        <div className="hidden md:flex items-center gap-4">
+          {/* Search - Base size */}
+          <div className="relative w-auto">
+            <SearchBar onSearch={(value) => console.log("Searching for:", value)} />
+          </div>
+
+          {/* Cart - 1x golden ratio size */}
           <button
-            className="px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base"
+            className="p-2.5 flex items-center justify-center rounded-full bg-slate-100 text-black group transition-colors hover:bg-slate-200"
             onClick={() => navigate("/cart")}
+            aria-label="Shopping cart"
           >
-            <ShoppingBag className="w-3 h-3 md:w-5 md:h-5" />
+            <ShoppingBag className="w-5 h-5" />
           </button>
 
+          {/* Account - 1.6x golden ratio size */}
           {localStorage.getItem("token") !== null ? (
             <div
               className="relative"
               onMouseEnter={() => setIsAccountOpen(true)}
               onMouseLeave={() => setIsAccountOpen(false)}
             >
-              <button className="group relative px-4 py-2 md:px-6 md:py-3 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base">
-                <span className="phone-none">Welcome</span>
-                <ChevronDown
-                  className={`w-5 h-5 md:w-6 md:h-6 transform transition-transform duration-300 ${
-                    isAccountOpen === true ? "rotate-180" : ""
-                  }`}
-                />
+              <button className="group relative px-4 py-2 flex items-center space-x-2 justify-between rounded-full bg-slate-100 text-black transition-colors hover:bg-slate-200">
+                <span className="hidden sm:inline-block font-medium">Kaushik</span>
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="User avatar" />
+                  <AvatarFallback>KA</AvatarFallback>
+                </Avatar>
               </button>
               <AnimatePresence>
                 {isAccountOpen && (
@@ -462,14 +422,7 @@ export default function Navbar() {
                         href="/wishlist"
                         title="Wishlist"
                         description="View your saved items"
-                        icon={
-                          <Heart
-                            className="w-3 h-3 md:w-5 md:h-5"
-                            fill="red"
-                            stroke="none"
-                            fillOpacity="0.7"
-                          />
-                        }
+                        icon={<Heart className="w-5 h-5" fill="red" stroke="none" fillOpacity="0.7" />}
                       />
                       <DropdownLink
                         href="/profile"
@@ -496,7 +449,7 @@ export default function Navbar() {
             </div>
           ) : (
             <button
-              className="px-4 py-2 md:px-4 md:py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group text-sm md:text-base"
+              className="px-4 py-2 flex items-center justify-center rounded-full bg-slate-100 text-black group transition-colors hover:bg-slate-200 font-medium"
               onClick={() => navigate("/login")}
             >
               Login
@@ -524,17 +477,11 @@ export default function Navbar() {
                   />
                 </svg>
                 {/* apply text spacing */}
-                <a
-                  className="text-2xl font-bold leading-none text-[#0099cc] items-stretch"
-                  href="/"
-                >
+                <a className="text-2xl font-bold leading-none text-[#0099cc] items-stretch" href="/">
                   ezalia
                 </a>
               </div>
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-600 hover:text-gray-800"
-              >
+              <button onClick={() => setIsMenuOpen(false)} className="text-gray-600 hover:text-gray-800">
                 <X size={24} />
               </button>
             </div>
@@ -573,5 +520,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }
