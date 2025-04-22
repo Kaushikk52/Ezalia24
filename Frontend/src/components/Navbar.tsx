@@ -5,10 +5,9 @@ import { ChevronDown, Heart, Icon, LogOut, Menu, Settings, Shirt, ShoppingBag, S
 import { bottleBaby, dress, flowerPot } from "@lucide/lab"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import LogoAnimation from "./LogoAnimation"
 import { SearchBar } from "./Searchbar"
-import { Avatar, AvatarFallback } from "./ui/avatar"
-import { AvatarImage } from "@radix-ui/react-avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+
 
 export default function Navbar() {
   const [isExploreOpen, setIsExploreOpen] = useState(false)
@@ -55,8 +54,8 @@ export default function Navbar() {
     >
       <div className="text-gray-600">{icon}</div>
       <div className="ml-2 flex flex-col">
-        <div className="font-semibold">{title}</div>
-        <p className="text-sm text-gray-500">{description}</p>
+        <div className="font-semibold font-playfair">{title}</div>
+        <p className="text-sm text-gray-500 font-merriweather">{description}</p>
       </div>
     </Link>
   )
@@ -77,7 +76,8 @@ export default function Navbar() {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
-          <LogoAnimation />
+          {/* <LogoAnimation /> */}
+          <img src="/ezalia-logo.png" alt="" className="w-44 h-10" />
         </div>
         <nav className="hidden md:flex space-x-8">
           <div
@@ -85,7 +85,7 @@ export default function Navbar() {
             onMouseEnter={() => setIsExploreOpen(true)}
             onMouseLeave={() => setIsExploreOpen(false)}
           >
-            <button className="group relative text-base font-semibold text-gray-800 hover:text-gray-900 focus:outline-none">
+            <button className="font-merriweather group relative text-base font-semibold text-gray-800 hover:text-gray-900 focus:outline-none">
               Catalogue
               <ChevronDown
                 size={16}
@@ -113,11 +113,11 @@ export default function Navbar() {
             `}
                         onClick={() => setSelectedCategory("womens")}
                       >
-                        <div className="font-semibold flex items-center">
+                        <div className="font-semibold flex items-center font-playfair italic">
                           <Icon iconNode={dress} className="mr-2" size={18} />
                           Womens
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Discover the latest in women’s fashion — dresses, tops, ethnic wear, western styles & more.
                         </p>
                       </button>
@@ -129,11 +129,11 @@ export default function Navbar() {
             `}
                         onClick={() => setSelectedCategory("mens")}
                       >
-                        <div className="font-semibold flex items-center">
+                        <div className="font-semibold flex items-center font-playfair italic">
                           <Shirt className="mr-2" size={18} />
                           Mens
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Explore a wide range of men’s apparel — shirts, t-shirts, jeans, formalwear & activewear.
                         </p>
                       </button>
@@ -145,11 +145,11 @@ export default function Navbar() {
             `}
                         onClick={() => setSelectedCategory("kids")}
                       >
-                        <div className="font-semibold flex items-center">
+                        <div className="font-semibold flex items-center font-playfair italic">
                           <Icon iconNode={bottleBaby} className="mr-2" size={18} />
                           Kids
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Shop fun, colorful, and comfortable clothes for kids — from infants to teens, for all
                           occasions.
                         </p>
@@ -162,11 +162,11 @@ export default function Navbar() {
             `}
                         onClick={() => setSelectedCategory("beauty")}
                       >
-                        <div className="font-semibold flex items-center">
+                        <div className="font-semibold flex items-center font-playfair italic">
                           <SprayCan className="mr-2" size={18} />
                           Beauty
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Elevate your look with skincare, makeup, and beauty accessories from top brands.
                         </p>
                       </button>
@@ -178,11 +178,11 @@ export default function Navbar() {
             `}
                         onClick={() => setSelectedCategory("home")}
                       >
-                        <div className="font-semibold flex items-center">
+                        <div className="font-semibold flex items-center font-playfair italic">
                           <Icon iconNode={flowerPot} className="mr-2" size={18} />
                           Home & Kitchen
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Add style to your space with curated home décor, kitchen essentials, and lifestyle
                           accessories.
                         </p>
@@ -372,10 +372,10 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
           <NavLink href="/about">
-            <span className="text-black">About</span>
+            <span className="text-black font-merriweather text-base">About</span>
           </NavLink>
           <NavLink href="/contact">
-            <span className="text-black">Contact</span>
+            <span className="text-black font-merriweather text-base">Contact</span>
           </NavLink>
         </nav>
         <div className="hidden md:flex items-center gap-4">
@@ -401,7 +401,7 @@ export default function Navbar() {
               onMouseLeave={() => setIsAccountOpen(false)}
             >
               <button className="group relative px-4 py-2 flex items-center space-x-2 justify-between rounded-full bg-slate-100 text-black transition-colors hover:bg-slate-200">
-                <span className="hidden sm:inline-block font-medium">Kaushik</span>
+                <span className="hidden sm:inline-block font-medium font-merriweather">Kaushik</span>
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="https://github.com/shadcn.png" alt="User avatar" />
                   <AvatarFallback>KA</AvatarFallback>

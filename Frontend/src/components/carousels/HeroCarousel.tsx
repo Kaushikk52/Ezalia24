@@ -14,21 +14,21 @@ interface HeroSlide {
 const heroSlides: HeroSlide[] = [
   {
     id: 1,
-    image: "/Ritika-banner-900-x-500-px.webp",
+    image: "https://i.pinimg.com/736x/db/ab/f5/dbabf533b5d05d02669f13099955dcee.jpg",
     title: "INDULGE YOURSELF WITH THE FINEST OUTFITS.",
     subtitle: "AUTUMN FABRIC",
     ctaText: "Shop Collection",
   },
   {
     id: 2,
-    image: "/sabrina-banner-900-x-500-px.webp",
+    image: "https://i.pinimg.com/736x/1c/24/c9/1c24c99e73b76abb5dcffe12683cbd45.jpg",
     title: "DISCOVER THE LATEST TRENDS IN FASHION.",
     subtitle: "WINTER COLLECTION",
     ctaText: "Explore Now",
   },
   {
     id: 3,
-    image: "/Less_isn_t_more_Mughal_jewellery_1920_x_500_px_1920_x_450_px_1450_x_450_px_1.webp",
+    image: "https://i.pinimg.com/736x/f1/4a/10/f14a102f411d405633ec91fd5d5c8bd0.jpg",
     title: "ELEVATE YOUR STYLE WITH PREMIUM CLOTHING.",
     subtitle: "PREMIUM SELECTION",
     ctaText: "View Collection",
@@ -98,7 +98,7 @@ export default function HeroCarousel() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-white text-lg font-medium tracking-wider mb-2"
+                  className="text-orange-200 font-playfair italic text-lg font-medium tracking-wider mb-2"
                 >
                   {heroSlides[currentIndex].subtitle}
                 </motion.p>
@@ -106,13 +106,14 @@ export default function HeroCarousel() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-white text-4xl md:text-5xl font-bold mb-6 leading-tight"
+                  className="text-white font-bebas text-4xl md:text-5xl font-bold mb-6 leading-tight tracking-wider"
                 >
                   {heroSlides[currentIndex].title}
                 </motion.h2>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-                  <Button className="bg-white text-black hover:bg-gray-100 rounded-none px-6">
+                  <Button className="bg-white font-merriweather text-base text-black hover:bg-gray-100 rounded-2xl px-3">
                     {heroSlides[currentIndex].ctaText}
+                    <img src="/pavun.png" className="h-10 w-10 text-black fill-current"/>
                   </Button>
                 </motion.div>
               </div>
