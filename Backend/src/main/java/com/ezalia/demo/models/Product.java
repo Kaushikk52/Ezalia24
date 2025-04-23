@@ -44,4 +44,6 @@ public class Product extends Auditable{
     private List<String> category;
     private List<String> tags;
 
+
+
 }
