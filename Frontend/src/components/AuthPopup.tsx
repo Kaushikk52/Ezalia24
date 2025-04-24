@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+"use client";
+import { useState, useEffect, use } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -11,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 export default function AuthPopup({
   popup,
@@ -22,7 +23,7 @@ export default function AuthPopup({
   navigateTo?: string;
   onLoginSuccess?: () => void;
 }) {
-  const baseURL = import.meta.env.VITE_APP_BACKEND_BASE_URL;
+  const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const roles = ["ROLE_AGENT", "ROLE_RESALER", "ROLE_USER"];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function AuthPopup({
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -121,11 +122,11 @@ export default function AuthPopup({
 
         const data = response.data;
         if (navigateTo) {
-          navigate(navigateTo);
+          navigate.push(navigateTo);
         } else if (data.role === "ROLE_USER") {
-          navigate("/");
+          navigate.push("/");
         } else {
-          navigate("/");
+          navigate.push("/");
         }
       }
     } catch (err) {

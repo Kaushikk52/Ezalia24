@@ -2,7 +2,13 @@
 @import "tailwindcss";
 
 @theme{
-    --font-bebas: "Bebas Neue",serif;
-    --font-merriweather: "Merriweather",serif;
-    --font-playfair: "Playfair Display",serif;
-} 
+  --font-bebas: "Bebas Neue",serif;
+  --font-merriweather: "Merriweather",serif;
+  --font-playfair: "Playfair Display",serif;
+}
+
+@media screen and (max-width: 600px) {
+  .phone-none {
+    display: none;
+  }
+}

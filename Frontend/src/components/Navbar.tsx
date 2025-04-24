@@ -1,3 +1,4 @@
+"use client";
 import type React from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,22 +17,19 @@ import {
 } from "lucide-react";
 import { bottleBaby, dress, flowerPot } from "@lucide/lab";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { SearchBar } from "./Searchbar";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { SearchBar } from "@/components/SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import axios from "axios";
-import AuthPopup from "./auth/AuthPopup";
+import AuthPopup from "@/components/AuthPopup";
 import { Badge } from "./ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export default function Navbar() {
-  const baseURL = import.meta.env.VITE_APP_BACKEND_BASE_URL;
+  const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,7 +45,7 @@ export default function Navbar() {
   });
   const [toggle, setToggle] = useState(false);
   const [navigateTo, setNavigateTo] = useState("");
-  const navigate = useNavigate();
+  const navigate = useRouter();
   const [loginStatus, setLoginStatus] = useState(false);
 
   const dropdownVariants = {
@@ -63,7 +61,7 @@ export default function Navbar() {
     children: React.ReactNode;
   }) => (
     <Link
-      to={href}
+      href={href}
       className="group relative text-white text-base font-medium hover:text-gray-900"
     >
       {children}
@@ -85,7 +83,7 @@ export default function Navbar() {
     icon?: React.ReactNode;
   }) => (
     <Link
-      to={href}
+      href={href}
       className="flex flex-row items-center p-2 rounded-lg hover:bg-slate-50 transition-colors duration-200"
       onClick={onClick}
     >
@@ -179,7 +177,7 @@ export default function Navbar() {
     // console.log(route, toggle, token);
     if (token !== null && !toggle) {
       //user logged in and no popup
-      navigate(route);
+      navigate.push(route);
     } else if (token !== null && toggle === true) {
       //user logged in and still popup
       setToggle(false); // toggle not visible
@@ -559,11 +557,11 @@ export default function Navbar() {
           {/* Cart - 1x golden ratio size */}
           <div className="inline-block">
             <div className="relative">
-            <Tooltip>
-            <TooltipTrigger asChild>
+              <Tooltip>
+                <TooltipTrigger asChild>
                   <button
                     className="p-2.5 flex items-center justify-center rounded-full bg-slate-100 text-black group transition-colors hover:bg-slate-200"
-                    onClick={() => navigate("/cart")}
+                    onClick={() => navigate.push("/cart")}
                     aria-label="Shopping cart"
                   >
                     <ShoppingBag className="w-5 h-5" />
@@ -701,7 +699,7 @@ export default function Navbar() {
             </div>
             <div className="p-4">
               <Link
-                to="/"
+                href="/"
                 className="block py-2 text-lg font-semibold text-gray-800 hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -709,21 +707,21 @@ export default function Navbar() {
               </Link>
               <div className="mt-0"></div>
               <Link
-                to="/about"
+                href="/about"
                 className="block py-2 text-lg font-semibold text-gray-800 hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
               </Link>
               <Link
-                to="/services"
+                href="/services"
                 className="block py-2 text-lg font-semibold text-gray-800 hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
               </Link>
               <Link
-                to="/contact"
+                href="/contact"
                 className="block py-2 text-lg font-semibold text-gray-800 hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
