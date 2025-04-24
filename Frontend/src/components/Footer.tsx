@@ -6,7 +6,7 @@ export default function Footer() {
     <div className="container mx-auto px-4">
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
-          <h3 className="text-xl font-bold mb-4">GrowthMatrix</h3>
+          <h3 className="text-xl font-bold mb-4">Ezalia24</h3>
           <p className="text-purple-200">
             GrowthMatrix is a growth marketing agency that specialize in
             delivering iterative and data-driven growth operations for
@@ -90,7 +90,7 @@ export default function Footer() {
 
       <div className="mt-8 pt-8 border-t border-gray-400 flex flex-col md:flex-row justify-between items-center">
         <div className="text-center text-purple-200">
-          <p>&copy; 2024 All Rights Reserved By GrowthMatrix</p>
+          <p>&copy; 2024 All Rights Reserved By Ezalia24</p>
         </div>
 
         <div className="flex space-x-4">

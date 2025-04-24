@@ -1,6 +1,7 @@
 package com.ezalia.demo.models;
 
 import com.ezalia.demo.helper.StringListConverter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,7 +22,7 @@ public class Product extends Auditable{
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(name = "user_id", nullable = false, updatable = false, length = 36)
+    @Column(name = "id", nullable = false, updatable = false, length = 36)
     private String id;
 
     private String sku;
@@ -44,6 +45,31 @@ public class Product extends Auditable{
     private List<String> category;
     private List<String> tags;
 
+    private Double avgRating;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"product", "user"})
+    private List<Rating> ratings= new ArrayList<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"product", "user"})
+    private List<Review> reviews= new ArrayList<>();
+
+    private Boolean isSaved;
+
+    public void addRating(Rating rating) {
+        if (this.ratings == null) {
+            this.ratings = new ArrayList<>();
+        }
+        this.ratings.add(rating);
+        rating.setProduct(this);
+    }
+
+    public void addReview(Review review) {
+        if (this.reviews == null) {
+            this.reviews = new ArrayList<>();
+        }
+        this.reviews.add(review);
+        review.setProduct(this);
+    }
 
 }

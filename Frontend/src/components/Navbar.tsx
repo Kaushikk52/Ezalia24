@@ -19,7 +19,7 @@ import { bottleBaby, dress, flowerPot } from "@lucide/lab";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBar } from "@/components/Searchbar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
@@ -117,34 +117,34 @@ export default function Navbar() {
 
   const getUser = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setCurrentUser({
-          firstName: "",
-          lastName: "",
-          email: "",
-          role: "",
-          token: "",
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setCurrentUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            role: "",
+            token: "",
+          });
+          return;
+        }
+        const response = await axios.get(`${baseURL}/v1/api/user/principal`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        return;
-      }
-
-      const response = await axios.get(`${baseURL}/v1/api/user/principal`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (response.status === 401) {
-        setCurrentUser({
-          firstName: "",
-          lastName: "",
-          email: "",
-          role: "",
-          token: "",
-        });
-        localStorage.removeItem("token");
-      } else {
-        setCurrentUser(response.data.users);
-        setLoginStatus(true);
+        if (response.status === 401) {
+          setCurrentUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            role: "",
+            token: "",
+          });
+          localStorage.removeItem("token");
+        } else {
+          setCurrentUser(response.data.users);
+          setLoginStatus(true);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -163,16 +163,16 @@ export default function Navbar() {
   }, [localStorage.getItem("token")]);
 
   const checkIfLogin = (route: string) => {
-    const token = localStorage.getItem("token");
-    const isExpired = isTokenExpired(token);
-    if (isExpired) {
-      localStorage.removeItem("token");
-      toast.error("Login is required");
-    } else {
-      getUser();
-    }
-
-    // console.log("check if login", route, token);
+    if(window !== undefined){
+      const token = localStorage.getItem("token");
+      const isExpired = isTokenExpired(token);
+      if (isExpired && typeof window !== "undefined") {
+        localStorage.removeItem("token");
+        toast.error("Login is required");
+      } else {
+        getUser();
+      }
+      // console.log("check if login", route, token);
     setNavigateTo(route);
     // console.log(route, toggle, token);
     if (token !== null && !toggle) {
@@ -185,20 +185,23 @@ export default function Navbar() {
       //user not logged in
       setToggle(true); // toggle visible
     }
+    }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    toggle && setToggle(false);
-    setCurrentUser({
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: "",
-      token: "",
-    });
-    setLoginStatus(false);
-    toast.success("Logged out successfully");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      toggle && setToggle(false);
+      setCurrentUser({
+        firstName: "",
+        lastName: "",
+        email: "",
+        role: "",
+        token: "",
+      });
+      setLoginStatus(false);
+      toast.success("Logged out successfully");
+    }
   };
 
   return (
@@ -581,7 +584,7 @@ export default function Navbar() {
 
           {/* Account - 1.6x golden ratio size */}
 
-          {localStorage.getItem("token") !== null ? (
+          {window!== undefined && localStorage.getItem("token") !== null ? (
             <div
               className="relative"
               onMouseEnter={() => setIsAccountOpen(true)}

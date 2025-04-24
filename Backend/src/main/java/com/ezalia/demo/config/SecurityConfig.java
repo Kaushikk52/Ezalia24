@@ -43,6 +43,10 @@ public class SecurityConfig {
                         //Actuator endpoints
                         .requestMatchers("/actuator/**").permitAll()
 
+                        // Images endpoints
+                        .requestMatchers(HttpMethod.POST, "/v1/api/images/upload/single").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/v1/api/images/upload/multiple/**").permitAll()
+
                         // Authentication endpoints
                         .requestMatchers(HttpMethod.POST, "/v1/api/auth/**").permitAll()
 
