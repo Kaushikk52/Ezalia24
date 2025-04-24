@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import type React from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -212,7 +212,9 @@ export default function Navbar() {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
-          <img src="/ezalia-logo.png" alt="" className="w-44 h-10 phone-none" />
+          <Link href={"/"} className="flex items-center">
+            <img src="/ezalia-logo.png" alt="" className="w-44 h-10 phone-none" />
+          </Link>
         </div>
         <nav className="hidden md:flex space-x-8">
           <div
