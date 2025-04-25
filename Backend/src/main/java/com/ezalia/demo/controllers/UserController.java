@@ -77,7 +77,7 @@ public class UserController {
                     .role(currentUser.getRole())
                     .build();
 
-            log.info("Retrieved current user :{}",userDTO.getId());
+            log.info("✔ Retrieved current user:{}",userDTO.getId());
             response.put("message","Retrieved current user");
             response.put("users",userDTO);
             return ResponseEntity.status(HttpStatus.OK).body(response);
