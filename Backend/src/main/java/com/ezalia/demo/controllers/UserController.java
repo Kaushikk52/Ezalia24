@@ -62,10 +62,7 @@ public class UserController {
 
             Map<String, Object> response = new HashMap<>();
             if(currentUser.equals(null)){
-                log.warn("User not found");
-                response.put("message","User not found");
-                response.put("user",currentUser);
-                return ResponseEntity.status(HttpStatus.OK).body(response);
+               throw new RuntimeException("User not Found");
             }
 
             User userDTO = currentUser.builder()

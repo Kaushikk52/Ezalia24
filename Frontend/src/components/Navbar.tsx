@@ -166,9 +166,11 @@ export default function Navbar() {
     if(window !== undefined){
       const token = localStorage.getItem("token");
       const isExpired = isTokenExpired(token);
-      if (isExpired && typeof window !== "undefined") {
-        localStorage.removeItem("token");
-        toast.error("Login is required");
+      if (isExpired && loginStatus === false) {
+        if(typeof window !== "undefined"){
+          localStorage.removeItem("token");
+          toast.error("Login is required");
+        }
       } else {
         getUser();
       }
@@ -584,7 +586,7 @@ export default function Navbar() {
 
           {/* Account - 1.6x golden ratio size */}
 
-          {window!== undefined && localStorage.getItem("token") !== null ? (
+          {window!== undefined && localStorage.getItem("token") !== null && currentUser ? (
             <div
               className="relative"
               onMouseEnter={() => setIsAccountOpen(true)}
@@ -592,7 +594,7 @@ export default function Navbar() {
             >
               <button className="group relative px-4 py-2 flex items-center space-x-2 justify-between rounded-full bg-slate-100 text-black transition-colors hover:bg-slate-200">
                 <span className="hidden sm:inline-block font-medium font-merriweather">
-                  {currentUser.firstName}
+                  {currentUser?.firstName}
                 </span>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
@@ -600,7 +602,7 @@ export default function Navbar() {
                     alt="User avatar"
                   />
                   <AvatarFallback className="uppercase bg-slate-300 font-semibold">
-                    {currentUser.firstName.slice(0, 2)}
+                    {currentUser?.firstName.slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
               </button>
