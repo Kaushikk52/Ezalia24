@@ -1,5 +1,7 @@
 package com.ezalia.demo.models;
 
+import com.ezalia.demo.constants.OrderStatus;
+import com.ezalia.demo.constants.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -53,9 +55,12 @@ public class User extends Auditable implements UserDetails {
     @JsonIgnore
     private List<Rating> ratings;
 
-    public enum UserRole {
-        ROLE_USER,ROLE_ADMIN
-    }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Cart cart;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
     @PrePersist
     private void prePersist() {

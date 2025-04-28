@@ -11,8 +11,9 @@ import java.util.List;
 @Builder
 public class ProductUpdateRequest {
     private List<String> imagesToDelete;
+    private List<String> images;
     private String name;
     private String sku;
-    private String price;
+    private Double price;
     private String description;
 }

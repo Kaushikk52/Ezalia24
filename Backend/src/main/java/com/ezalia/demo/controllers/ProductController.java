@@ -1,5 +1,6 @@
 package com.ezalia.demo.controllers;
 
+import com.ezalia.demo.dto.ProductUpdateRequest;
 import com.ezalia.demo.models.Product;
 import com.ezalia.demo.models.Rating;
 import com.ezalia.demo.models.Review;
@@ -83,8 +84,37 @@ public class ProductController {
         }
     }
 
-    //TODO : Edit Product endpoints
+    @PostMapping(value = "/edit/details/{id}")
+    public ResponseEntity<Map<String,Object>> editDetails(@PathVariable String id, @RequestBody ProductUpdateRequest request){
+        Map<String,Object> response = new HashMap();
+        try {
+            Product updatedProduct = productServ.editProductDetails(id,request);
+            log.info("✔ Product Details updated successfully : {}", updatedProduct.getId());
+            response.put("message","Product Details updated successfully");
+            response.put("product", updatedProduct);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (RuntimeException e) {
+            log.warn("❗❗ An Error occurred : {}", e.getMessage());
+            response.put("message",e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
+    @PostMapping(value = "/edit/stock/{id}")
+    public ResponseEntity<Map<String,Object>> editStock(@PathVariable String id,@RequestBody int stock){
+        Map<String,Object> response = new HashMap();
+        try {
+            Product updatedProduct = productServ.editProductStock(id,stock);
+            log.info("✔ Product Stock updated successfully : {}", updatedProduct.getId());
+            response.put("message","Product Stock updated successfully");
+            response.put("product", updatedProduct);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (RuntimeException e) {
+            log.warn("❗❗ An Error occurred : {}", e.getMessage());
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
     @PostMapping(value = "/{id}/rating")
     public ResponseEntity<Map<String, Object>> addRating(@PathVariable String id, @RequestBody Rating rating, Principal principal){
@@ -133,5 +163,4 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-
 }

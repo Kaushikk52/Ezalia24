@@ -55,6 +55,7 @@ public class Product extends Auditable{
     private List<Review> reviews= new ArrayList<>();
 
     private Boolean isSaved;
+    private Boolean isDeleted;
 
     public void addRating(Rating rating) {
         if (this.ratings == null) {

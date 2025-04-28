@@ -306,7 +306,7 @@ export default function Navbar() {
                           Kids
                         </div>
                         <p className="text-sm text-gray-500 mt-1 font-merriweather">
-                          Shop fun, colorful, and comfortable clothes for kids —
+                          Shop fun, colorful, & comfortable clothes for kids —
                           from infants to teens, for all occasions.
                         </p>
                       </button>
@@ -327,7 +327,7 @@ export default function Navbar() {
                           Beauty
                         </div>
                         <p className="text-sm text-gray-500 mt-1 font-merriweather">
-                          Elevate your look with skincare, makeup, and beauty
+                          Elevate your look with skincare, makeup, & beauty
                           accessories from top brands.
                         </p>
                       </button>
@@ -353,7 +353,7 @@ export default function Navbar() {
                         </div>
                         <p className="text-sm text-gray-500 mt-1 font-merriweather">
                           Add style to your space with curated home décor,
-                          kitchen essentials, and lifestyle accessories.
+                          kitchen essentials, & lifestyle accessories.
                         </p>
                       </button>
                     </div>

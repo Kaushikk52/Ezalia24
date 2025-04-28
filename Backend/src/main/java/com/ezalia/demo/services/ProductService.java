@@ -1,5 +1,6 @@
 package com.ezalia.demo.services;
 
+import com.ezalia.demo.dto.ProductUpdateRequest;
 import com.ezalia.demo.models.Product;
 import com.ezalia.demo.models.Rating;
 import com.ezalia.demo.models.Review;
@@ -37,7 +38,7 @@ public class ProductService {
     public List<Product> filteredProducts(Map<String,Object> filters){
         List<Product> allProducts;
         if(filters.isEmpty()){
-            allProducts = productRepo.findAll();
+            allProducts = productRepo.findByIsDeletedFalse();
         }else {
             Specification<Product> spec = GenericSpecification.findByCriteria(filters);
             allProducts = productRepo.findAll(spec);
@@ -50,12 +51,22 @@ public class ProductService {
         return  product;
     }
 
-    // sku, name, description, images, price
-    public void editProductDetails(){
-
+    public Product editProductDetails(String id, ProductUpdateRequest request){
+        Product existingProduct = this.getProductById(id);
+        List<String> results = imgServ.deleteFiles(request.getImagesToDelete(),"Product");
+        existingProduct.setImages(request.getImages());
+        existingProduct.setSku(request.getSku());
+        existingProduct.setName(request.getName());
+        existingProduct.setDescription(request.getDescription());
+        existingProduct.setPrice(request.getPrice());
+        return productRepo.save(existingProduct);
     }
 
-    public void editProductStock(){}
+    public Product editProductStock(String id, int stock){
+        Product exisitingProduct = this.getProductById(id);
+        exisitingProduct.setStock(stock);
+        return productRepo.save(exisitingProduct);
+    }
 
     public void editProductTags(){}
 
@@ -101,11 +112,11 @@ public class ProductService {
         reviewRepo.save(review);
     }
 
-    public String deleteProduct(String id){
+    public void deleteProduct(String id){
         Product existingProduct = this.getProductById(id);
         List<String> results = imgServ.deleteFiles(existingProduct.getImages(),"Product");
-        productRepo.delete(existingProduct);
-        return "Delete Product by ID" + id;
+        existingProduct.setIsDeleted(true);
+        productRepo.save(existingProduct);
     }
 
 }
